@@ -1,35 +1,176 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showNewPostModal, setShowNewPostModal] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="font-poppins bg-[#fcf5e5] min-h-screen overflow-x-hidden">
+      {/* Header */}
+      <header className="h-12 py-5 flex justify-center items-center bg-white/80">
+        <nav className="navbar">
+          <div className="logo">
+            <img src="./Logo/Logo.svg" alt="logo" />
+          </div>
+        </nav>
+      </header>
+
+      {/* Main container */}
+      <main className="max-w-[1440px] mx-auto px-20 md:px-4">
+        {/* Hero Section */}
+        <section className="flex justify-between items-end mt-8 mb-5 flex-col md:flex-row text-center md:text-left">
+          <div className="flex flex-col md:flex-row items-center gap-5">
+            <img
+              src="./Images/Avatar.png"
+              alt="avatar"
+              className="w-[190px] h-[190px] md:w-[150px] md:h-[150px] sm:w-[80px] sm:h-[80px]"
+            />
+            <div className="flex flex-col justify-between items-start gap-9 md:items-start">
+              <div>
+                <h2 className="text-2xl font-medium mb-2 md:text-xl sm:text-lg">Bessie Coleman</h2>
+                <p className="text-[#212121b3] text-base font-medium sm:text-sm">Civil Aviator</p>
+              </div>
+              <button
+                className="text-[#1a1a1a99] text-base font-medium hover:opacity-100 transition-opacity"
+                onClick={() => setShowEditModal(true)}
+              >
+                <i className="fas fa-pen mr-1"></i> Edit Profile
+              </button>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setShowNewPostModal(true)}
+            className="mt-6 md:mt-0 flex items-center gap-2 w-[149px] h-[52px] bg-[#212121] text-[#fcf5e5] rounded-lg justify-center font-medium text-base hover:opacity-80 transition"
+          >
+            <img src="./Icons/Icon_add.svg" alt="add" />
+            New Post
+          </button>
+        </section>
+
+        <hr className="border-[#21212166]" />
+
+        {/* Grid Section */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-5 mb-10">
+          {/* Cards will be inserted here */}
+        </section>
+
+        <hr className="border-[#21212166]" />
+      </main>
+
+      <footer className="text-center py-6">2023 &copy; Spots</footer>
+
+      {/* Edit Profile Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-xl w-[90%] max-w-md relative">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold">Edit Profile</h2>
+              <button
+                onClick={() => setShowEditModal(false)}
+                className="text-2xl font-bold text-gray-600 hover:text-black"
+              >
+                &times;
+              </button>
+            </div>
+            <form className="flex flex-col gap-4">
+              <label className="text-sm font-medium">Name:</label>
+              <input
+                type="text"
+                className="border-2 border-[#dcc48f] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#dcc48f]"
+                minLength={8}
+                maxLength={20}
+              />
+
+              <label className="text-sm font-medium">Profession:</label>
+              <input
+                type="text"
+                className="border-2 border-[#dcc48f] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#dcc48f]"
+                minLength={8}
+                maxLength={120}
+                required
+              />
+
+              <label className="text-sm font-medium">Profile Image:</label>
+              <input
+                type="file"
+                accept="image/jpeg, image/png, image/jpg"
+                className="file:border file:border-gray-300 file:rounded file:px-3 file:py-1"
+                onChange={(e) =>
+                  setImagePreview(
+                    e.target.files?.[0]
+                      ? URL.createObjectURL(e.target.files[0])
+                      : null
+                  )
+                }
+              />
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-24 mt-2 rounded"
+                />
+              )}
+
+              <button
+                type="submit"
+                className="w-[149px] h-[52px] mx-auto bg-[#212121] text-[#fcf5e5] rounded-lg hover:opacity-80 transition"
+              >
+                Save Changes
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* New Post Modal */}
+      {showNewPostModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl w-[90%] max-w-md">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold">New Post</h3>
+              <button
+                onClick={() => setShowNewPostModal(false)}
+                className="text-lg hover:text-red-500"
+              >
+                <img src="./Icons/Icon_close.svg" alt="close" />
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <div>
+                <label className="text-sm font-medium">Post title</label>
+                <input
+                  type="text"
+                  minLength={8}
+                  maxLength={20}
+                  placeholder="Input title"
+                  className="w-full border-2 border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#dcc48f]"
+                />
+                <small className="text-red-500"></small>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium">Upload Image</label>
+                <input
+                  type="file"
+                  accept="image/jpeg, image/png, image/jpg"
+                  className="file:border file:border-gray-300 file:rounded file:px-3 file:py-1"
+                />
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <button className="bg-[#212121] text-[#fcf5e5] px-6 py-3 rounded-lg hover:opacity-80">
+                Upload Post
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
