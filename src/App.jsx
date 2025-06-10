@@ -6,36 +6,36 @@ function App() {
   const [imagePreview, setImagePreview] = useState(null);
 
   return (
-    <div className="font-poppins bg-[#fcf5e5] min-h-screen overflow-x-hidden">
+    <div className="bg-[#fcf5e5] min-h-screen overflow-x-hidden">
       {/* Header */}
       <header className="h-12 py-5 flex justify-center items-center bg-white/80">
         <nav className="navbar">
           <div className="logo">
-            <img src="./Logo/Logo.svg" alt="logo" />
+            <img src="src/assets/Logo.svg" alt="logo" />
           </div>
         </nav>
       </header>
 
       {/* Main container */}
-      <main className="max-w-[1440px] mx-auto px-20 md:px-4">
+      <main className="mx-auto px-20">
         {/* Hero Section */}
         <section className="flex justify-between items-end mt-8 mb-5 flex-col md:flex-row text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center gap-5">
             <img
-              src="./Images/Avatar.png"
+              src="src/assets/Avatar.png"
               alt="avatar"
-              className="w-[190px] h-[190px] md:w-[150px] md:h-[150px] sm:w-[80px] sm:h-[80px]"
+              className="w-[190px] h-[190px]"
             />
-            <div className="flex flex-col justify-between items-start gap-9 md:items-start">
+            <div className="flex flex-col justify-between items-start gap-9 ">
               <div>
-                <h2 className="text-2xl font-medium mb-2 md:text-xl sm:text-lg">Bessie Coleman</h2>
+                <h2 className="text-4xl font-medium mb-2">Bessie Coleman</h2>
                 <p className="text-[#212121b3] text-base font-medium sm:text-sm">Civil Aviator</p>
               </div>
               <button
-                className="text-[#1a1a1a99] text-base font-medium hover:opacity-100 transition-opacity"
+                className="text-slate-600 flex gap-2 font-medium hover:opacity-100 transition-opacity"
                 onClick={() => setShowEditModal(true)}
               >
-                <i className="fas fa-pen mr-1"></i> Edit Profile
+                <img src="src/assets/Icon_edit.svg" />Edit Profile
               </button>
             </div>
           </div>
